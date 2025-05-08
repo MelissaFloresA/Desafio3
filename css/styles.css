@@ -4,7 +4,7 @@ body {
 }
 
 .card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
 }
 
@@ -23,6 +23,7 @@ body {
 .btn-eliminar {
     cursor: pointer;
 }
+
 .btn-editar {
     background-color: #0d6efd;
     color: white;
@@ -37,6 +38,116 @@ body {
     display: flex;
     gap: 10px;
 }
+
+/*Estilos para el botón de registro*/
+#btn-registro {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    font-size: 19px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(31, 122, 232);
+    z-index: 1;
+}
+
+#btn-registro:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #a1d7eb;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+
+}
+
+#btn-registro:hover {
+    color: #ffffff;
+    border: 1px solid #01bbff;
+}
+
+#btn-registro:before {
+    top: -35%;
+    background-color: #01bbff;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+#btn-registro:hover:after {
+    top: -45%;
+    background-color: #01bbff;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+/**-------------------------------/
+
+/* -- Estilos para el botón de cancelar - */
+#btnCancelar {
+    width: 175px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    background: #e62222;
+    color:white;
+}
+
+#btnCancelar,
+#btnCancelar span {
+    transition: 200ms;
+}
+
+#btnCancelar .icon {
+    position: absolute;
+    border-left: 1px solid #c41b1b;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btnCancelar svg {
+    width: 15px;
+    fill: #eee;
+}
+
+#btnCancelar:hover {
+    background: #ff3939;
+}
+
+#btnCancelar:hover .text {
+    color: transparent;
+}
+
+#btnCancelar:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+#btnCancelar:focus{
+    outline: none;
+}
+#btnCancelar:active .icon svg{
+    transform: scale(0.8);
+}
+
+/* ---------------------------------- */
+
 
 @media (max-width: 768px) {
     .card {

@@ -37,8 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -78,7 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
                                 <input type="password" class="form-control" id="password" name="password" required>
                                 <div class="invalid-feedback" id="errorPassword"></div>
                             </div>
-
+                            <div class="mb-3">
+                                <label for="password2" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="password2" name="password2" required>
+                                <div class="invalid-feedback" id="errorPassword2"></div>
+                            </div>
                             <div class="mb-3">
                                 <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                 <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
@@ -87,10 +92,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex">
-                                <button type="submit" class="btn btn-primary">Registrar</button>
-                                
+                                <button type="submit" class="btn btn-primary" id="btn-registro">Registrar</button>
+
                                 <!--para edicion si se quiere cancelar none para que no se mire si no esta editando-->
-                                <button type="button" id="btnCancelar" class="btn btn-secondary d-none">Cancelar</button>
+                                <button type="button" id="btnCancelar" class="btn d-none noselect">
+                                <span class="text">Cancelar</span><span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -114,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Los usuarios se cargarán aquí via AJAX -->
+                                    <!-- Los usuarios se cargarán aquí con AJAX -->
                                 </tbody>
                             </table>
                         </div>
@@ -127,7 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/validaciones.js"></script>
     <script src="js/registrousuario.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

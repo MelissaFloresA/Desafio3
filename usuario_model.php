@@ -10,7 +10,7 @@ class UsuarioModel {
     }
 
     public function crearUsuario($nombres, $apellidos, $correo, $password, $fecha_nacimiento) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);//convierte a hash
+        $hashedPassword = hash('sha256', $password);//convierte a hash - 256
         $stmt = $this->conn->prepare("INSERT INTO usuarios (nombres, apellidos, correo, contraseña, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $nombres, $apellidos, $correo, $hashedPassword, $fecha_nacimiento);
         return $stmt->execute();
@@ -30,8 +30,9 @@ class UsuarioModel {
     }
 
     public function actualizarUsuario($id, $nombres, $apellidos, $correo, $password, $fecha_nacimiento) {
+        $hashedPassword = hash('sha256', $password); // Aplicar SHA-256
         $stmt = $this->conn->prepare("UPDATE usuarios SET nombres = ?, apellidos = ?, correo = ?, contraseña = ?, fecha_nacimiento = ? WHERE idusuarios = ?");
-        $stmt->bind_param("sssssi", $nombres, $apellidos, $correo, $password, $fecha_nacimiento, $id);
+        $stmt->bind_param("sssssi", $nombres, $apellidos, $correo, $hashedPassword, $fecha_nacimiento, $id);
         return $stmt->execute();
     }
 

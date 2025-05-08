@@ -6,6 +6,7 @@ function validarFormulario(event) {
     const apellidos = document.getElementById("apellidos").value.trim();
     const correo = document.getElementById("correo").value.trim();
     const password = document.getElementById("password").value.trim();
+    const password2 = document.getElementById("password2").value.trim(); // confirmacion de contraseña
     const fecha = document.getElementById("fecha_nacimiento").value.trim();
     const fechaactual = new Date();
 
@@ -39,7 +40,7 @@ function validarFormulario(event) {
         esValido = false;
     }
 
-    // Validación de contraseña
+    // Validación de contraseña1
     if (password === "") {
         document.getElementById("errorPassword").textContent = "Ingrese una contraseña.";
         document.getElementById("password").classList.add('is-invalid');
@@ -48,7 +49,18 @@ function validarFormulario(event) {
         document.getElementById("errorPassword").textContent = "La contraseña debe tener al menos 6 caracteres.";
         document.getElementById("password").classList.add('is-invalid');
         esValido = false;
-    }
+    } 
+        // Solo validar coincidencia de contraseñas
+        if (password2 === "") {
+            document.getElementById("errorPassword2").textContent = "Confirme su contraseña.";
+            document.getElementById("password2").classList.add('is-invalid');
+            esValido = false;
+        } else if (password !== password2) {
+            document.getElementById("errorPassword2").textContent = "Las contraseñas no coinciden.";
+            document.getElementById("password2").classList.add('is-invalid');
+            esValido = false;
+        }
+    
 
     // Validación de fecha de nacimiento
     if (fecha === "") {
@@ -79,11 +91,11 @@ function validarFormulario(event) {
 }
 
 // Validación en tiempo real
-document.addEventListener('DOMContentLoaded', function() {
-    const campos = ['nombres', 'apellidos', 'correo', 'password', 'fecha_nacimiento'];
-    
+document.addEventListener('DOMContentLoaded', function () {
+    const campos = ['nombres', 'apellidos', 'correo', 'password', 'password2', 'fecha_nacimiento'];
+
     campos.forEach(campo => {
-        document.getElementById(campo).addEventListener('blur', function() {
+        document.getElementById(campo).addEventListener('blur', function () {
             const event = new Event('submit', { cancelable: true });
             validarFormulario(event);
         });
