@@ -135,6 +135,8 @@ $(document).ready(function () {
     });
 });
 
+//llena tabla de usuarios con los datos de la base de datos
+//se ejecuta al cargar la pagina y al registrar o eliminar un usuario
 function cargarUsuarios() {
     $.ajax({
         url: 'usuario_ajax.php?action=listar',

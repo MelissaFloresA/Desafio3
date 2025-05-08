@@ -16,9 +16,10 @@ class UsuarioModel {
         return $stmt->execute();
     }
 
+    //visualizacion dinamica de los usuarios
     public function obtenerUsuarios() {
         $result = $this->conn->query("SELECT * FROM usuarios ORDER BY idusuarios DESC");
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $result->fetch_all(MYSQLI_ASSOC);//devuelve un array asociativo
     }
 
     public function obtenerUsuarioPorId($id) {
@@ -33,7 +34,7 @@ class UsuarioModel {
         $hashedPassword = hash('sha256', $password); // Aplicar SHA-256
         $stmt = $this->conn->prepare("UPDATE usuarios SET nombres = ?, apellidos = ?, correo = ?, contraseña = ?, fecha_nacimiento = ? WHERE idusuarios = ?");
         $stmt->bind_param("sssssi", $nombres, $apellidos, $correo, $hashedPassword, $fecha_nacimiento, $id);
-        return $stmt->execute();
+        return $stmt->execute(); //bind paran strins(s) y los ? es que se reemplanzan en el otrden indicado
     }
 
     public function eliminarUsuario($id) {

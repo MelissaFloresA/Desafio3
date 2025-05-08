@@ -153,4 +153,10 @@ body {
     .card {
         margin: 10px;
     }
+    #btnCancelar {
+        width: 100%;
+    }
+    #btn-registro {
+        width: 100%;
+    }
 }

@@ -49,38 +49,43 @@ function validarFormulario(event) {
         document.getElementById("errorPassword").textContent = "La contraseña debe tener al menos 6 caracteres.";
         document.getElementById("password").classList.add('is-invalid');
         esValido = false;
-    } 
-        // Solo validar coincidencia de contraseñas
-        if (password2 === "") {
-            document.getElementById("errorPassword2").textContent = "Confirme su contraseña.";
-            document.getElementById("password2").classList.add('is-invalid');
-            esValido = false;
-        } else if (password !== password2) {
-            document.getElementById("errorPassword2").textContent = "Las contraseñas no coinciden.";
-            document.getElementById("password2").classList.add('is-invalid');
-            esValido = false;
-        }
-    
+    }
+    // Solo validar coincidencia de contraseñas
+    if (password2 === "") {
+        document.getElementById("errorPassword2").textContent = "Confirme su contraseña.";
+        document.getElementById("password2").classList.add('is-invalid');
+        esValido = false;
+    } else if (password !== password2) {
+        document.getElementById("errorPassword2").textContent = "Las contraseñas no coinciden.";
+        document.getElementById("password2").classList.add('is-invalid');
+        esValido = false;
+    }
+
 
     // Validación de fecha de nacimiento
-    if (fecha === "") {
-        document.getElementById("errorFecha").textContent = "Ingrese una fecha.";
+if (fecha === "") {
+    document.getElementById("errorFecha").textContent = "Ingrese una fecha.";
+    document.getElementById("fecha_nacimiento").classList.add('is-invalid');
+    esValido = false;
+} else {
+    const fechaNacimiento = new Date(fecha);
+    const anioNacimiento = fechaNacimiento.getFullYear();
+    const anioActual = new Date().getFullYear(); //para validar edad
+    
+    if (fechaNacimiento >= new Date()) {
+        document.getElementById("errorFecha").textContent = "La fecha de nacimiento no puede ser futura.";
         document.getElementById("fecha_nacimiento").classList.add('is-invalid');
         esValido = false;
-    } else {
-        const fechaNacimiento = new Date(fecha);
-        const anioNacimiento = fechaNacimiento.getFullYear();
-
-        if (fechaNacimiento >= fechaactual) {
-            document.getElementById("errorFecha").textContent = "La fecha de nacimiento no puede ser futura.";
-            document.getElementById("fecha_nacimiento").classList.add('is-invalid');
-            esValido = false;
-        } else if (anioNacimiento < 1000) {
-            document.getElementById("errorFecha").textContent = "El año de la fecha de nacimiento no puede ser menor a 1000.";
-            document.getElementById("fecha_nacimiento").classList.add('is-invalid');
-            esValido = false;
-        }
+    } else if (anioNacimiento < 1000) {
+        document.getElementById("errorFecha").textContent = "El año de la fecha de nacimiento no puede ser menor a 1000.";
+        document.getElementById("fecha_nacimiento").classList.add('is-invalid');
+        esValido = false;
+    } else if ((anioActual - anioNacimiento) < 18) { //mayor de 18 años
+        document.getElementById("errorFecha").textContent = "Debes tener al menos 18 años de edad.";
+        document.getElementById("fecha_nacimiento").classList.add('is-invalid');
+        esValido = false;
     }
+}
 
     // Si hay errores, no enviar el formulario
     if (!esValido) {
@@ -92,11 +97,11 @@ function validarFormulario(event) {
 
 // Validación en tiempo real
 document.addEventListener('DOMContentLoaded', function () {
-    const campos = ['nombres', 'apellidos', 'correo', 'password', 'password2', 'fecha_nacimiento'];
+    const campos = ['nombres', 'apellidos', 'correo', 'password', 'password2', 'fecha_nacimiento']; //campos que se validan
 
     campos.forEach(campo => {
         document.getElementById(campo).addEventListener('blur', function () {
-            const event = new Event('submit', { cancelable: true });
+            const event = new Event('submit', { cancelable: true }); //se previene el envio si hay errores
             validarFormulario(event);
         });
     });

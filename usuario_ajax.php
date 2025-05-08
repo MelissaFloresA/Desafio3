@@ -2,25 +2,25 @@
 require_once 'conexion.php';
 require_once 'usuario_model.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json');//devuelve json
 
 $model = new UsuarioModel();
 $response = ['success' => false, 'message' => 'Acción no válida'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Manejo de acciones POST (CRUD)
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'registrar':
                 $errores = validarDatos($_POST);
                 
-                if (empty($errores)) {
+                if (empty($errores)) {//si no hay errores
                     $exito = $model->crearUsuario(
                         $_POST['nombres'],
                         $_POST['apellidos'],
                         $_POST['correo'],
                         $_POST['password'],
                         $_POST['fecha_nacimiento']
-                    );
+                    ); //funcion del modelo para crear usuario
                     
                     if ($exito) {
                         $response = [
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
                 
             case 'obtener':
-                if (isset($_POST['id'])) {
+                if (isset($_POST['id'])) {//se ocupa al dar click en editar y poner info en los input 
                     $usuario = $model->obtenerUsuarioPorId($_POST['id']);
                     if ($usuario) {
                         $response = [
@@ -104,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
         }
     }
+    // ---------Manejo de GET para listar usuarios----------------
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'listar') {
     $usuarios = $model->obtenerUsuarios();
     $response = ['success' => true, 'usuarios' => $usuarios];
@@ -147,8 +148,11 @@ function validarDatos($data) {
         $errores['fecha_nacimiento'] = "La fecha de nacimiento no puede ser futura.";
     } else {
         $anioNacimiento = date('Y', $fechaTimestamp);
-        if ($anioNacimiento < 1000) {
+        if ($anioNacimiento < 1000) { //que no sea una fecha muy antigua
             $errores['fecha_nacimiento'] = "El año de nacimiento no es válido.";
+        }
+        elseif (date('Y') - $anioNacimiento < 18) { //mayor 18 años
+            $errores['fecha_nacimiento'] = "Debes tener al menos 18 años de edad.";
         }
     }
 
